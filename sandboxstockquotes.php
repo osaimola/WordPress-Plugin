@@ -3,7 +3,7 @@
 /*
 Plugin Name: Sandbox stock quotes
 Plugin URI: http://stonks.ca
-Description: This is a sample plugin for sandbox that dives into the murky waters of the stock market
+Description: This is a sample plugin for sandbox that dives into the murky waters of the stock market. use [showstock] shortcode to add, pass an optional ticker to see results for different stocks [showstock ticker="AAPL"]
 Version: 1.6.6.6
 Author URI: http://stonks.ca
 */
@@ -22,10 +22,18 @@ add_shortcode(
 );
 
 
-function show_stock_quotes () {
+function show_stock_quotes (  $atts ) {
+  // make all attributes uppercase
+
+  // Read more about adding attributes to shortcodes here: https://cullenwebservices.com/pass-a-variable-to-a-wordpress-shortcode/
+  // use the extract method to pull the values passed for ticker / set a default value
+  extract( shortcode_atts( array(
+    'ticker' => "TSLA", // set a default value for ticker
+), $atts ) 
+);
  
 //The function will then use either an input list or the default list to create the correct url:
-$url = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=TSLA&apikey=3AM473W2EIHY0WL6&f=nl1c1&e=.csv";
+$url = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={$ticker}&apikey=3AM473W2EIHY0WL6&f=nl1c1&e=.csv";
  
 //and then read in the data stream from the Yahoo! Finance web site:
 $response = file_get_contents( $url );
@@ -37,11 +45,12 @@ $response = file_get_contents( $url );
     // Attempt to convert JSON from a string to a PHP array / object.
     if ( ( $responseJson = json_decode( $response ) ) !== NULL )
     {
+        //var_dump($ticker);
         //var_dump($responseJson->{"Weekly Time Series"});
         // Start an output buffer (echos after this point are NOT sent to the browser, until we clear the buffer.)
         ob_start();
 
-      echo "<h2>TSLA Stock Prices</h2>";
+      echo "<h2>{$ticker} Weekly Stock Prices</h2>";
       foreach( $responseJson->{"Weekly Time Series"} as $key => $value) :         
         ?>
         <div class="stock">

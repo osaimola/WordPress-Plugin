@@ -1,0 +1,32 @@
+.stock {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+  margin: 15px auto;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background-color: #32373c;
+}
+
+.stock:hover {
+  border: 1px solid #6c7781;
+}
+
+/* style the stock date */
+.stock > div:nth-of-type(1) {
+  font-weight: 700;
+  font-family: monospace;
+}
+
+/* style the low price */
+.stock > div:nth-of-type(2) {
+  color: #ffb75f;
+  font-weight: 700;
+}
+
+/* style the high price */
+.stock > div:nth-of-type(3) {
+  color: #17e198;
+  font-weight: 700;
+}

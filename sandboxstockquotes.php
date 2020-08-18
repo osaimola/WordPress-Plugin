@@ -3,7 +3,7 @@
 /*
 Plugin Name: Sandbox stock quotes
 Plugin URI: http://stonks.ca
-Description: This is a sample plugin for sandbox that dives into the murky waters of the stock market. use [showstock] shortcode to add, pass an optional ticker to see results for different stocks [showstock ticker="AAPL"]
+Description: This is a sample plugin for sandbox that dives into the murky waters of the stock market. use [showstock] shortcode to add, pass an optional ticker to see results for different stocks [showstock ticker="AAPL"], pass optional weeks to limit how many weeks are displayed [showstock weeks="4"]
 Version: 1.6.6.6
 Author URI: http://stonks.ca
 */

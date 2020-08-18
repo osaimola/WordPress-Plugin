@@ -29,6 +29,7 @@ function show_stock_quotes (  $atts ) {
   // use the extract method to pull the values passed for ticker / set a default value
   extract( shortcode_atts( array(
     'ticker' => "TSLA", // set a default value for ticker
+    'weeks' => 5,  // set a default of 5 weeks to be displayed
 ), $atts ) 
 );
  
@@ -51,7 +52,11 @@ $response = file_get_contents( $url );
         ob_start();
 
       echo "<h2>{$ticker} Weekly Stock Prices</h2>";
-      foreach( $responseJson->{"Weekly Time Series"} as $key => $value) :         
+      // loop through a slice of the results equal to the number of weeks specified
+      $limit = 0;
+      // var_dump($weeks);
+      foreach($responseJson->{"Weekly Time Series"} as $key => $value) :    
+        if ($limit++ == $weeks) break; // use == to accept strings from user, break when limit equals the number of desired weeks to display
         ?>
         <div class="stock">
         <div><?php echo $key ?></div>
